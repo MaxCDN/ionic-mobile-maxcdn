@@ -1,0 +1,2 @@
+ionic-mobile-maxcdn
+===================
