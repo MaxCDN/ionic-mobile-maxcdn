@@ -8,6 +8,7 @@ var authom = require('authom');
 var MaxAuth = require('./lib/maxauth');
 
 var config = require('./config');
+var api = require('./lib/api')(config.maxcdn);
 
 
 main();
@@ -34,8 +35,8 @@ function serve() {
 
     authom.createServer({
         service: 'maxcdn',
-        key: config.key,
-        secret: config.secret
+        key: config.maxcdn['consumer_key'],
+        secret: config.maxcdn['consumer_secret']
     });
 
     authom.on('auth', function(req, res, data){
@@ -53,16 +54,39 @@ function serve() {
 
     app.get('/auth/:service', authom.app);
 
-    app.get('/', function(req, res){
-        var user = (req.session && req.session.user) ? req.session.user : false;
+    app.get('/', function(req, res) {
+        var user = (req.session && req.session.user)? req.session.user: null;
 
         if(user) {
-            // TODO: fetch company alias and attach it to user data
-        }
+            user['token_secret'] = user.secret;
 
-        res.render('index', {
-            user: user
-        });
+            api.companyAlias({
+                token: user.token,
+                'token_secret': user['token_secret']
+            }, function(err, companyAlias) {
+                if(err) {
+                    console.warn(err);
+
+                    // XXX: maybe give warning instead?
+                    return res.render('index', {
+                        user: user
+                    });
+                }
+
+                user.companyAlias = companyAlias;
+
+                // TODO: attach stats (or implement api)
+
+                res.render('index', {
+                    user: user
+                });
+            });
+        }
+        else {
+            res.render('index', {
+                user: user
+            });
+        }
     });
 
     http.createServer(app).listen(app.get('port'), function() {
