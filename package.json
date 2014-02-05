@@ -1,0 +1,27 @@
+{
+  "name": "ionic-mobile-maxcdn",
+  "version": "0.0.1",
+  "description": "Mobile example of MaxCDN API usage based on Ionic and Express",
+  "scripts": {
+    "start": "node ./serve.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MaxCDN/ionic-mobile-maxcdn.git"
+  },
+  "keywords": [
+    "maxcdn"
+  ],
+  "bugs": {
+    "url": "https://github.com/MaxCDN/ionic-mobile-maxcdn/issues"
+  },
+  "homepage": "https://github.com/MaxCDN/ionic-mobile-maxcdn",
+  "dependencies": {
+    "ejs": "~0.8.5",
+    "authom": "~0.4.25",
+    "request": "~2.33.0",
+    "express": "~3.4.8",
+    "parse-env": "~0.2.2",
+    "oauth": "~0.9.11"
+  }
+}
