@@ -4,10 +4,15 @@ This mobile application provides a demonstration of how to use [the MaxCDN API](
 
 ## Development
 
-1. cordova platform add android
-2. cordova build android
-3. cordova serve android
-4. npm start
+You should set up Android, iOS, WP if you want to develop on one of those platforms. After that the workflow looks something like this:
+
+1. `npm start` (in another terminal or screen it)
+2. `cordova platform add android`
+3. `cordova build android`
+4. Plug in Android device through USB (remember to enable USB debugging via System settings -> Developer Options Debugging -> USB debugging)
+5. `cordova run android`
+
+You can skip step 2. after you have done it once.
 
 ## Acknowledgments
 
