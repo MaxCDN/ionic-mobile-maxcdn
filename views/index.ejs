@@ -4,7 +4,9 @@
   <body>
     <a href="/auth/maxcdn">login</a>
   </body>
-  <% if( user ){ %>
+  <% if(user){ %>
+    <div>Company alias: <%= user.companyAlias %></div>
+
     <script>
       // Expose the user object to the window. This could be anything that
       // gives the phonegap app access to session infromation.
