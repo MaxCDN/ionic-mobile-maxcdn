@@ -6,5 +6,4 @@ dist
 *.sw*
 
 platforms/^.*
-config/config.js
 
