@@ -36,16 +36,12 @@
             app.initialize();
         </script>
     </head>
-    <body>
-        <div class="app">
-            <h1>MaxCDN Monitor</h1>
+    <body ng-app="monitor" animation="slide-left-right-ios7">
+        <nav-bar type="bar-positive"
+               animation="nav-title-slide-ios7"
+               back-button-type="button-icon"
+               back-button-icon="ion-ios7-arrow-back"></nav-bar>
 
-            <a href="#" class="login">Login</a>
-
-            <div id="deviceready">
-                <p class="status pending blink">Connecting to Device</p>
-                <p class="status complete blink hide">Device is Ready</p>
-            </div>
-        </div>
+        <nav-view></nav-view>
     </body>
 </html>
