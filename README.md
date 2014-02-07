@@ -19,6 +19,8 @@ Run mobile app:
 3. Plug in Android device through USB (remember to enable USB debugging via System settings -> Developer Options Debugging -> USB debugging)
 4. `cordova run android`
 
+If you just want to test it out locally in a web browser, serve `www/` through a static server. You can use [serve](https://npmjs.org/package/serve) module for this purpose or just serve it through Python (`python -m SimpleHTTPServer`).
+
 ## Acknowledgments
 
 * Login based on @wookiehangover's [phonegap-auth-example](https://github.com/wookiehangover/phonegap-oauth-example) - It comes with the same caveats! You should be using `https` in production. In addition you might want to harden the implementation as discussed in that example.
