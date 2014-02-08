@@ -27,7 +27,8 @@ function serve() {
         app.set('views', __dirname + '/views');
         app.set('view engine', 'ejs');
         app.use(express.logger('dev'));
-        app.use(express.bodyParser());
+        app.use(express.json());
+        app.use(express.urlencoded());
         app.use(express.cookieParser(config.cookieSecret));
         app.use(express.session());
         app.use(app.router);
