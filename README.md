@@ -21,6 +21,8 @@ Run mobile app:
 
 If you just want to test it out locally in a web browser, serve `www/` through a static server. You can use [serve](https://npmjs.org/package/serve) module for this purpose or just serve it through Python (`python -m SimpleHTTPServer`).
 
+> IMPORTANT! In order to avoid possible glitches, install [InAppBrowser plugin](http://docs.phonegap.com/en/3.3.0/cordova_inappbrowser_inappbrowser.md.html): `cordova plugin add org.apache.cordova.inappbrowser` before building.
+
 ## Acknowledgments
 
 * Login based on @wookiehangover's [phonegap-auth-example](https://github.com/wookiehangover/phonegap-oauth-example) - It comes with the same caveats! You should be using `https` in production. In addition you might want to harden the implementation as discussed in that example.
