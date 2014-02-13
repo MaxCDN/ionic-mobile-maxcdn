@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('monitor.controllers', [])
-.controller('DashboardCtrl', function($scope, StatisticsService, LoginService, $http) {
-    $scope.login = LoginService;
-
-    $scope.statistics = StatisticsService.get();
-}).controller('PopularCtrl', function($scope, LoginService) {
-    $scope.login = LoginService;
-
-    // TODO: fetch data
+.controller('DashboardCtrl', function($scope, dataService) {
+    dataService.getStatistics().then(function(statistics) {
+        $scope.statistics = statistics;
+    });
+}).controller('PopularCtrl', function($scope, dataService) {
+    dataService.getPopular().then(function(popular) {
+        $scope.popular = popular;
+    });
 });
