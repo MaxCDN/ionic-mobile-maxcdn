@@ -56,7 +56,7 @@ function serve() {
     app.get('/auth/:service', authom.app);
 
     app.get('/', function(req, res) {
-        var user = (req.session && req.session.user)? req.session.user: null;
+        var user = getUser(req.session);
 
         if(user) {
             user['token_secret'] = user.secret;
@@ -64,7 +64,7 @@ function serve() {
             api.companyAlias({
                 token: user.token,
                 'token_secret': user['token_secret']
-            }, function(err, companyAlias) {
+            }, function(err, alias) {
                 if(err) {
                     console.warn(err);
 
@@ -74,9 +74,7 @@ function serve() {
                     });
                 }
 
-                user.companyAlias = companyAlias;
-
-                // TODO: attach stats (or implement api)
+                user.alias = alias;
 
                 res.render('index', {
                     user: user
@@ -90,7 +88,57 @@ function serve() {
         }
     });
 
+    app.get('/statistics', function(req, res) {
+        var user = getUser(req.session);
+
+        if(user) {
+            api.stats({
+                alias: user.alias,
+                token: user.token,
+                'token_secret': user['token_secret']
+            }, function(err, stats) {
+                if(err) {
+                    console.warn(err);
+
+                    return res.send(500);
+                }
+
+                res.json(stats);
+            });
+        }
+        else {
+            res.send(401);
+        }
+    });
+
+    app.get('/popular', function(req, res) {
+        var user = getUser(req.session);
+
+        if(user) {
+            api.popular({
+                alias: user.alias,
+                token: user.token,
+                'token_secret': user['token_secret']
+            }, function(err, popular) {
+                if(err) {
+                    console.warn(err);
+
+                    return res.send(500);
+                }
+
+                res.json(popular);
+            });
+        }
+        else {
+            res.send(401);
+        }
+    });
+
     http.createServer(app).listen(app.get('port'), function() {
         console.log('Express server listening on '+ app.get('port'));
     });
+}
+
+function getUser(store) {
+    return store && store.user;
 }

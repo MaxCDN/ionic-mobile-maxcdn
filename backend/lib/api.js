@@ -21,21 +21,28 @@ module.exports = function(baseConfig) {
             });
         },
         stats: function(config, cb) {
-            var alias = config.companyAlias;
-
-            delete config.companyAlias;
-
-            get(alias + '/reports/stats.json', config, function(err, d) {
+            get(config.alias + '/reports/stats.json', config, function(err, d) {
                 if(err) {
                     return cb(err);
                 }
 
                 cb(null, d.stats);
             });
+        },
+        popular: function(config, cb) {
+            get(config.alias + '/reports/popularfiles.json', config, function(err, d) {
+                if(err) {
+                    return cb(err);
+                }
+
+                cb(null, d.popularfiles);
+            });
         }
     };
 
     function get(url, config, cb) {
+        delete config.alias;
+
         request.get({
             url: 'https://rws.netdna.com/' + url,
             oauth: extend(extend({}, baseConfig), config),
