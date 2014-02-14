@@ -17,16 +17,13 @@ angular.module('monitor.services', [])
         }
         else {
             $http.get(constants.baseUrl + resource).success(function(data) {
-                if(data) {
-                    resources[resource] = data;
+                resources[resource] = data;
 
-                    deferred.resolve(data);
-                }
-                else {
-                    loginService(function() {
-                        getOrLoginAndGet(resource, deferred);
-                    });
-                }
+                deferred.resolve(data);
+            }).error(function() {
+                loginService(function() {
+                    getOrLoginAndGet(resource, deferred);
+                });
             });
         }
 
