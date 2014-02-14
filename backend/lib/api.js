@@ -21,7 +21,17 @@ module.exports = function(baseConfig) {
             });
         },
         stats: function(config, cb) {
-            get(config.companyAlias + '/reports/stats.json', config, cb);
+            var alias = config.companyAlias;
+
+            delete config.companyAlias;
+
+            get(alias + '/reports/stats.json', config, function(err, d) {
+                if(err) {
+                    return cb(err);
+                }
+
+                cb(null, d.stats);
+            });
         }
     };
 
