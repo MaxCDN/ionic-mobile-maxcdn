@@ -20,7 +20,7 @@ module.exports = function(baseConfig) {
                 cb(null, d.account.alias);
             });
         },
-        stats: function(config, cb) {
+        statistics: function(config, cb) {
             get(config.alias + '/reports/stats.json', config, function(err, d) {
                 if(err) {
                     return cb(err);

@@ -88,55 +88,35 @@ function serve() {
         }
     });
 
-    app.get('/statistics', function(req, res) {
-        var user = getUser(req.session);
-
-        if(user) {
-            api.stats({
-                alias: user.alias,
-                token: user.token,
-                'token_secret': user['token_secret']
-            }, function(err, stats) {
-                if(err) {
-                    console.warn(err);
-
-                    return res.send(500);
-                }
-
-                res.json(stats);
-            });
-        }
-        else {
-            res.send(401);
-        }
-    });
-
-    app.get('/popular', function(req, res) {
-        var user = getUser(req.session);
-
-        if(user) {
-            api.popular({
-                alias: user.alias,
-                token: user.token,
-                'token_secret': user['token_secret']
-            }, function(err, popular) {
-                if(err) {
-                    console.warn(err);
-
-                    return res.send(500);
-                }
-
-                res.json(popular);
-            });
-        }
-        else {
-            res.send(401);
-        }
-    });
+    app.get('/statistics', getData.bind(null, 'statistics'));
+    app.get('/popular', getData.bind(null, 'popular'));
 
     http.createServer(app).listen(app.get('port'), function() {
         console.log('Express server listening on '+ app.get('port'));
     });
+}
+
+function getData(type, req, res) {
+    var user = getUser(req.session);
+
+    if(user) {
+        api[type]({
+            alias: user.alias,
+            token: user.token,
+            'token_secret': user['token_secret']
+        }, function(err, popular) {
+            if(err) {
+                console.warn(err);
+
+                return res.send(500);
+            }
+
+            res.json(popular);
+        });
+    }
+    else {
+        res.send(401);
+    }
 }
 
 function getUser(store) {

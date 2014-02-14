@@ -7,7 +7,7 @@ tests();
 
 function tests() {
     testCompanyAlias();
-    testStats();
+    testStatistics();
 }
 
 
@@ -18,11 +18,11 @@ function testCompanyAlias() {
     });
 }
 
-function testStats() {
+function testStatistics() {
     // TODO: fetch token + secret from server. gives invalid signature now
     api.companyAlias({}, function(err, alias) {
         if(alias) {
-            api.stats({
+            api.statistics({
                 alias: alias
             }, function(err, stats) {
                 // in case credentials and alias are right, this should return something
