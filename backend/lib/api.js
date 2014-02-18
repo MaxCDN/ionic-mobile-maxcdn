@@ -43,9 +43,11 @@ module.exports = function(baseConfig) {
     function get(url, config, cb) {
         delete config.alias;
 
+        var oauth = extend(extend({}, baseConfig), config);
+
         request.get({
             url: 'https://rws.netdna.com/' + url,
-            oauth: extend(extend({}, baseConfig), config),
+            oauth: oauth,
             json: true
         }, function(err, res, body) {
             if(err) {
