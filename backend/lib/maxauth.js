@@ -55,8 +55,6 @@ Max.prototype.onRequest = function(req, res) {
         'HMAC-SHA1'
     );
 
-console.log('return path', returnPath, verifier, token);
-
     if(verifier && token) {
         oa.getOAuthAccessToken(token, secrets[token], verifier, onToken);
     }
