@@ -2,13 +2,13 @@
     <content has-header="true" padding="true">
         <div class="list list-inset">
             <div class="item">
-                Transferred: {{ statistics.transferred }} TB
+                Transferred: {{ statistics.size }}
             </div>
             <div class="item">
-                Cache hits: {{ statistics.cacheHits }}
+                Cache hits: {{ statistics.cache_hit }}
             </div>
             <div class="item">
-                Non-cache hits: {{ statistics.nonCacheHits }}
+                Non-cache hits: {{ statistics.noncache_hit }}
             </div>
         </div>
     </content>
