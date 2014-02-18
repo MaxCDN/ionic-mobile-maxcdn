@@ -1,9 +1,9 @@
 'use strict';
 
-var extend = require('util')._extend;
 
 
 module.exports = function(baseConfig) {
+    var extend = require('util')._extend;
     var request = require('request');
 
     return {
