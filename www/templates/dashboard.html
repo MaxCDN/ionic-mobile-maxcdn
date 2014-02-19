@@ -2,7 +2,7 @@
     <content has-header="true" padding="true">
         <div class="list list-inset">
             <div class="item">
-                Transferred: {{ statistics.size }}
+                Transferred: {{ bytesToSize(statistics.size, 3) }}
             </div>
             <div class="item">
                 Cache hits: {{ statistics.cache_hit }}
