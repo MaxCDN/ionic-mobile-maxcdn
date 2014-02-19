@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('monitor', ['ionic', 'monitor.constants', 'monitor.services', 'monitor.controllers'])
+angular.module('monitor', ['ionic', 'monitor.constants',
+    'monitor.directives', 'monitor.services', 'monitor.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('tab', {
         url: '/tab',
