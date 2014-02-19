@@ -1,7 +1,7 @@
 <view title="'Popular'">
     <content has-header="true" has-tabs="true">
         <div class="list list-inset">
-            <div class="item" ng-repeat="file in popular">{{ file.url }} - {{ file.hit }} - {{ bytesToSize(file.size, 3) }} </div>
+            <div class="item" ng-repeat="file in popular">{{ file.uri }} - {{ file.hit }} - {{ bytesToSize(file.size, 3) }} </div>
         </div>
     </content>
 </view>
