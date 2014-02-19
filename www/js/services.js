@@ -33,7 +33,7 @@ angular.module('monitor.services', [])
     return function(cb) {
         var ref = window.open(constants.baseUrl + 'auth/maxcdn', '_blank', 'location=yes,transitionstyle=fliphorizontal');
 
-        ref.addEventListener('loadstop', function(event) {
+        ref.addEventListener('loadstart', function(event) {
             if(event.url !== constants.baseUrl) {
                 return;
             }
