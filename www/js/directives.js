@@ -7,7 +7,14 @@ angular.module('monitor.directives', []).directive('ellipsis', function() {
             text: '@ellipsisText'
         },
         link: function(scope, element) {
-            $(element).text(scope.text).ellipsis({visible: 2, more: '…', separator: '/', atFront: true});
+            var text = scope.text;
+            var parts = scope.text.split('/');
+
+            if(parts.length > 2) {
+                text = '…' + parts.slice(-2).join('/');
+            }
+
+            element.text(text);
         }
     };
 });
