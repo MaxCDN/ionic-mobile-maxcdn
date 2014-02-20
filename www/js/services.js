@@ -73,6 +73,8 @@ angular.module('monitor.services', [])
 }).factory('numberWithCommasService', function() {
     // http://stackoverflow.com/a/2901298/228885
     return function(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        if(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
     };
 });
