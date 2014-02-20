@@ -2,7 +2,7 @@
     <content has-header="true" has-tabs="true">
         <div class="list list-inset">
             <div class="item" ng-repeat="file in popular">
-                <span ellipsis ellipsis-text="{{ file.uri }}"></span> - <span>{{ numberWithCommas(file.hit) }}</span> - <span>{{ bytesToSize(file.size, 3) }}</span>
+                <span ellipsis ellipsis-text="{{ file.uri }}"></span> - <span>{{ numberWithCommas(file.hit) }}</span> - <span ng-if="file.size">{{ bytesToSize(file.size, 3) }}</span>
             </div>
         </div>
     </content>
