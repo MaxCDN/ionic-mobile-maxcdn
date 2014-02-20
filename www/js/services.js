@@ -4,10 +4,19 @@ angular.module('monitor.services', [])
 .factory('dataService', function($http, $q, loginService, constants) {
     var resources = {};
 
+    constants.token =  getParameter('token');
+    constants.secret = getParameter('secret');
+
     return {
         getStatistics: getOrLoginAndGet.bind(null, 'statistics'),
         getPopular: getOrLoginAndGet.bind(null, 'popular')
     };
+
+    // http://stackoverflow.com/a/12254019/228885
+    function getParameter(n){
+        var half = location.search.split(n+'=')[1];
+        return half? decodeURIComponent(half.split('&')[0]): null;
+    }
 
     function getOrLoginAndGet(resource, deferred) {
         deferred = deferred || $q.defer();
@@ -16,7 +25,12 @@ angular.module('monitor.services', [])
             deferred.resolve(resources[resource]);
         }
         else {
-            $http.get(constants.baseUrl + resource).success(function(data) {
+            $http.get(constants.baseUrl + resource, {
+                headers: {
+                    'Token': constants.token,
+                    'Secret': constants.secret
+                }
+            }).success(function(data) {
                 resources[resource] = data;
 
                 deferred.resolve(data);
@@ -31,17 +45,26 @@ angular.module('monitor.services', [])
     }
 }).factory('loginService', function(constants) {
     return function(cb) {
-        var ref = window.open(constants.baseUrl + 'auth/maxcdn', '_blank', 'location=yes,transitionstyle=fliphorizontal');
+        // phonegap
+        if(window.device) {
+            var ref = window.open(constants.baseUrl + 'auth/maxcdn', '_blank', 'modal=yes,alwaysRaised=yes'); //'location=yes,transitionstyle=fliphorizontal');
 
-        ref.addEventListener('loadstart', function(event) {
-            if(event.url !== constants.baseUrl) {
-                return;
-            }
+            // phonegap
+            ref.addEventListener('loadstart', function(event) {
+                if(event.url !== constants.baseUrl) {
+                    return;
+                }
 
-            ref.close();
+                ref.close();
 
-            cb(null, event);
-        });
+                cb(null, event);
+            });
+        }
+        else {
+            var url = window.location.href;
+
+            window.location = constants.baseUrl + 'auth/maxcdn?url=' + url;
+        }
     };
 }).factory('bytesToSizeService', function() {
     // http://codeaid.net/javascript/convert-size-in-bytes-to-human-readable-format-(javascript)

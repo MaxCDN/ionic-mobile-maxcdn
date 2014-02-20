@@ -19,7 +19,29 @@ module.exports = require('annoinject')(['api'], function(imports) {
             }
         }
         else {
-            res.send(401);
+            // regular browser
+            var token = req.headers.token;
+            var secret = req.headers.secret;
+
+            if(!token || !secret) {
+                return res.send(401);
+            }
+
+            // TODO: push alias to API level
+            imports.api.companyAlias({
+                token: token,
+                'token_secret': secret
+            }, function(err, alias) {
+                if(err) {
+                    return res.send(401);
+                }
+
+                getData(type, {
+                    alias: alias,
+                    token: token,
+                    secret: secret
+                }, res);
+            });
         }
     };
 

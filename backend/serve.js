@@ -45,12 +45,15 @@ function serve() {
     });
 
     authom.on('auth', function(req, res, data) {
-        if(!req.session ){
+        if(!req.session) {
             return res.send(500);
         }
 
+        var url = req.query.url + '?token=' + data.token + '&secret=' + data.secret;
+
         req.session.user = data;
-        res.redirect('/');
+
+        res.redirect(url);
     });
 
     authom.on('error', function(req, res, data) {
@@ -58,6 +61,14 @@ function serve() {
     });
 
     app.get('/auth/:service', authom.app);
+
+    // access control - allow everything
+    app.all('*', function(req, res, next) {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With, Token, Secret');
+
+        next();
+    });
 
     app.get('/', routes.main.get);
     app.get('/statistics', routes.statistics.get);
