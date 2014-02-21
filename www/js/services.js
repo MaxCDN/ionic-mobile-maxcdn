@@ -46,7 +46,7 @@ angular.module('monitor.services', [])
 }).factory('loginService', function(constants) {
     return function(cb) {
         // phonegap
-        if(window.device) {
+        if(document.location.protocol === 'file:') {
             var ref = window.open(constants.baseUrl + 'auth/maxcdn',
                 '_blank',
                 'location=yes,transitionstyle=fliphorizontal');
