@@ -47,9 +47,10 @@ angular.module('monitor.services', [])
     return function(cb) {
         // phonegap
         if(window.device) {
-            var ref = window.open(constants.baseUrl + 'auth/maxcdn', '_blank', 'modal=yes,alwaysRaised=yes'); //'location=yes,transitionstyle=fliphorizontal');
+            var ref = window.open(constants.baseUrl + 'auth/maxcdn',
+                '_blank',
+                'location=yes,transitionstyle=fliphorizontal');
 
-            // phonegap
             ref.addEventListener('loadstart', function(event) {
                 if(event.url !== constants.baseUrl) {
                     return;
