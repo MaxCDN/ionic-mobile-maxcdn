@@ -49,9 +49,13 @@ function serve() {
             return res.send(500);
         }
 
-        var url = req.query.url + '?token=' + data.token + '&secret=' + data.secret;
+        var url = '/';
 
-        req.session.user = data;
+        if(req.query.url) {
+            req.session.user = data;
+
+            url = req.query.url + '?token=' + data.token + '&secret=' + data.secret;
+        }
 
         res.redirect(url);
     });
