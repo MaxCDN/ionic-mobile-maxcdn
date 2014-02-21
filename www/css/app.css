@@ -81,6 +81,11 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 }
 
+.bar.bar-positive {
+    background-color: #444444;
+    border-color: black;
+}
+
 /* portrait */
 /* @media screen and (max-aspect-ratio: 1/1) */
 .app {
